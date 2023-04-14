@@ -1,5 +1,12 @@
+<div align = "center" >
 <h1> Labirinto-Recorrente </h1>
-<!-- IMAGEM LABIRINTO-->
+<img src="https://user-images.githubusercontent.com/109817570/232165764-1f993a40-61d9-491a-83ff-d45b118b11b2.jpg" width="14%">
+
+![C++](https://img.shields.io/badge/Linguagem-C++-green.svg)
+![Make](https://img.shields.io/badge/Compilacao-Make-orange)
+![VSCode](https://img.shields.io/badge/IDE-VSCode-informational)
+</div>
+
 <p align="justify">
 Programa para disciplina de Algoritmo de Estrutura de Dados I, desenvolvido na linguagem C++.<br>
 Neste algoritmo, se encontra a seguinte indagação: como encontrar a saída de um labirinto? Desta forma, o objetivo deste programa é encontrar uma saída para um labirinto virtual (representado por matrizes), partindo de um local definido pelo usuário na primeira matriz, durante o caminhamento existirá inumeros desafios que serão enfrentados pelo "Viajante". Portanto, este sistema trabalha o conceito de caminhamento em matrizes e entre matrizes de forma <b>aleatória</b>, objetivando utilizar execuções mais elaboradas e ao final <b>analisar o custo computacional</b> de todo o processo.<br>  
