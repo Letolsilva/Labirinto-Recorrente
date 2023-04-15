@@ -125,15 +125,15 @@ void Matriz::walkmatrix(string *ss, string *nome_bool)
    {
       Funcs_padroes(0, &i, &j, viaj, &val, this->mat, &allNonZero, this->matrix);
    }
-   else if ((stoi(this->mat[i][j]) > 0) && !this->mat[i][j].empty()) 
+   else if ((stoi(this->mat[i][j]) > 0) && !this->mat[i][j].empty())
    {
-     Funcs_padroes(1, &i, &j, viaj, &val, this->mat, &allNonZero, this->matrix);
+      Funcs_padroes(1, &i, &j, viaj, &val, this->mat, &allNonZero, this->matrix);
    }
    else if (stoi(this->mat[i][j]) == 0)
    {
       cout << "Itens esgotados nesta posição quem sabe terá mais sorte na próxima!" << endl;
       this->matrix[i][j] = 1;
-      this->viaj.setQtd_andada(this->viaj.getQtd_andada()+1);
+      this->viaj.setQtd_andada(this->viaj.getQtd_andada() + 1);
    }
    cout << "\t MAPA ATUALIZADO " << endl;
    imprimir(this->num_matrizes);
@@ -147,7 +147,7 @@ void Matriz::walkmatrix(string *ss, string *nome_bool)
          break;
       }
       aleatorio = rand() % 8 + 1;
-      // aleatorio = 1;
+       //aleatorio = 8;
       cout << "\n Número gerado: " << aleatorio << endl;
       switch (aleatorio)
       {
@@ -186,7 +186,7 @@ void Matriz::walkmatrix(string *ss, string *nome_bool)
          {
             cout << "\t Itens esgotados nesta posição quem sabe terá mais sorte na próxima!" << endl;
             this->matrix[i][j] = 1;
-            this->viaj.setQtd_andada(this->viaj.getQtd_andada()+1);
+            this->viaj.setQtd_andada(this->viaj.getQtd_andada() + 1);
             imprimir(this->num_matrizes);
          }
          break;
@@ -226,7 +226,7 @@ void Matriz::walkmatrix(string *ss, string *nome_bool)
          {
             cout << "\t Itens esgotados nesta posição quem sabe terá mais sorte na próxima!" << endl;
             this->matrix[i][j] = 1;
-            this->viaj.setQtd_andada(this->viaj.getQtd_andada()+1);
+            this->viaj.setQtd_andada(this->viaj.getQtd_andada() + 1);
             imprimir(this->num_matrizes);
          }
          break;
@@ -267,7 +267,7 @@ void Matriz::walkmatrix(string *ss, string *nome_bool)
          {
             cout << "\t Itens esgotados nesta posição quem sabe terá mais sorte na próxima!" << endl;
             this->matrix[i][j] = 1;
-            this->viaj.setQtd_andada(this->viaj.getQtd_andada()+1);
+            this->viaj.setQtd_andada(this->viaj.getQtd_andada() + 1);
             imprimir(this->num_matrizes);
          }
          break;
@@ -308,7 +308,7 @@ void Matriz::walkmatrix(string *ss, string *nome_bool)
          {
             cout << "\t Itens esgotados nesta posição quem sabe terá mais sorte na próxima!" << endl;
             this->matrix[i][j] = 1;
-            this->viaj.setQtd_andada(this->viaj.getQtd_andada()+1);
+            this->viaj.setQtd_andada(this->viaj.getQtd_andada() + 1);
             imprimir(this->num_matrizes);
          }
          break;
@@ -349,7 +349,7 @@ void Matriz::walkmatrix(string *ss, string *nome_bool)
          {
             cout << "\t Itens esgotados nesta posição quem sabe terá mais sorte na próxima!" << endl;
             this->matrix[i][j] = 1;
-            this->viaj.setQtd_andada(this->viaj.getQtd_andada()+1);
+            this->viaj.setQtd_andada(this->viaj.getQtd_andada() + 1);
             imprimir(this->num_matrizes);
          }
          break;
@@ -391,7 +391,7 @@ void Matriz::walkmatrix(string *ss, string *nome_bool)
          {
             cout << "\t Itens esgotados nesta posição quem sabe terá mais sorte na próxima!" << endl;
             this->matrix[i][j] = 1;
-            this->viaj.setQtd_andada(this->viaj.getQtd_andada()+1);
+            this->viaj.setQtd_andada(this->viaj.getQtd_andada() + 1);
             imprimir(this->num_matrizes);
          }
          break;
@@ -433,7 +433,7 @@ void Matriz::walkmatrix(string *ss, string *nome_bool)
          {
             cout << "\t Itens esgotados nesta posição quem sabe terá mais sorte na próxima!" << endl;
             this->matrix[i][j] = 1;
-            this->viaj.setQtd_andada(this->viaj.getQtd_andada()+1);
+            this->viaj.setQtd_andada(this->viaj.getQtd_andada() + 1);
             imprimir(this->num_matrizes);
          }
          break;
@@ -474,7 +474,7 @@ void Matriz::walkmatrix(string *ss, string *nome_bool)
          {
             cout << "\t Itens esgotados nesta posição quem sabe terá mais sorte na próxima!" << endl;
             this->matrix[i][j] = 1;
-            this->viaj.setQtd_andada(this->viaj.getQtd_andada()+1);
+            this->viaj.setQtd_andada(this->viaj.getQtd_andada() + 1);
             imprimir(this->num_matrizes);
          }
          break;

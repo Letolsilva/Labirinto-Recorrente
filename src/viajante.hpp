@@ -30,7 +30,6 @@ public:
     void setQtd_andada(int qtd_andada);
 
      int getItensNaoPegos();
-    void setItensNaoPegos(int itensNaoPeos);
-
+     void setItensNaoPegos(int itensNaoPeos);
 };
 #endif
