@@ -19,6 +19,7 @@ private:
     string **mat;// matriz com as condiçoes
     short int positionsNoaccessed=0, positionsAccessed=0, qtd_andadas=0;
     viajante viaj;
+    bool vetor[8];
     
 public:
     Matriz();

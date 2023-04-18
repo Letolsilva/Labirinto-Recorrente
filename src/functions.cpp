@@ -45,7 +45,7 @@ void salvar_matriz(int tam, string **mat, string *ss, bool **matrix, string *nom
    file_bool.close();
 }
 
-void changeDimension(int tag, int *i, int *j, string **mat, int *num_matrizes, viajante &viaj, int *val, string *ss, int tam, bool *mudou_mat, bool *allNonZero, bool **matrix, string *nomebool)
+void changeDimension(int tag, int *i, int *j, string **mat, int *num_matrizes, viajante &viaj, int *val, string *ss, int tam, bool *mudou_mat, bool *allNonZero, bool **matrix, string *nomebool, int initialLinha, int initialColuna, bool vetor[8])
 {
 
    switch (tag)
@@ -56,9 +56,10 @@ void changeDimension(int tag, int *i, int *j, string **mat, int *num_matrizes, v
       *nomebool = "dataset/matrizbool" + to_string(*num_matrizes + 1) + ".data";
       (*num_matrizes)++;
       *mudou_mat = false;
-      *i = 0;
+      *i = initialLinha;
+      *j = initialColuna;
       nova_matriz(tam, mat, ss, matrix, nomebool);
-      while (mat[*i][*j] == "#" )
+      while (mat[*i][*j] == "#")
       {
          *i = rand() % (tam - 1);
          *j = rand() % (tam - 1);
@@ -69,12 +70,12 @@ void changeDimension(int tag, int *i, int *j, string **mat, int *num_matrizes, v
            << "[" << *j << "]" << endl;
       if (mat[*i][*j] == "*")
       {
-         Funcs_padroes(0, i, j, viaj, val, mat, allNonZero, matrix);
+         Funcs_padroes(0, i, j, viaj, val, mat, allNonZero, matrix, vetor);
          return;
       }
       else if (stoi(mat[*i][*j]) > 0 && mat[*i][*j] != "*" && mat[*i][*j] != "#")
       {
-         Funcs_padroes(1, i, j, viaj, val, mat, allNonZero, matrix);
+         Funcs_padroes(1, i, j, viaj, val, mat, allNonZero, matrix, vetor);
          return;
       }
       else
@@ -82,6 +83,9 @@ void changeDimension(int tag, int *i, int *j, string **mat, int *num_matrizes, v
          cout << "\t (int) Poxa, todas as poções ja foram resgatadas nesta posição, quem sabe terá mais sorte na próxima!" << endl;
          matrix[*i][*j] = 1;
          viaj.setQtd_andada(viaj.getQtd_andada() + 1);
+         for(int i=0; i<8; i++){
+            vetor[i]=false;
+         }
          return;
       }
 
@@ -92,10 +96,11 @@ void changeDimension(int tag, int *i, int *j, string **mat, int *num_matrizes, v
       *ss = "dataset/matriz" + to_string(0) + ".data";
       *nomebool = "dataset/matrizbool" + to_string(0) + ".data";
       *num_matrizes = 0;
-      *i = (tam - 1);
+      *i = initialLinha;
+      *j = initialColuna;
       nova_matriz(tam, mat, ss, matrix, nomebool);
 
-      while (mat[*i][*j] == "#" )
+      while (mat[*i][*j] == "#")
       {
          *i = rand() % (tam - 1);
          *j = rand() % (tam - 1);
@@ -108,12 +113,12 @@ void changeDimension(int tag, int *i, int *j, string **mat, int *num_matrizes, v
 
       if (mat[*i][*j] == "*")
       {
-         Funcs_padroes(0, i, j, viaj, val, mat, allNonZero, matrix);
+         Funcs_padroes(0, i, j, viaj, val, mat, allNonZero, matrix, vetor);
          return;
       }
       else if (stoi(mat[*i][*j]) > 0 && mat[*i][*j] != "*" && mat[*i][*j] != "#")
       {
-         Funcs_padroes(1, i, j, viaj, val, mat, allNonZero, matrix);
+         Funcs_padroes(1, i, j, viaj, val, mat, allNonZero, matrix, vetor);
          return;
       }
       else
@@ -121,6 +126,9 @@ void changeDimension(int tag, int *i, int *j, string **mat, int *num_matrizes, v
          cout << "\t (int) Poxa, todas as poções ja foram resgatadas nesta posição, quem sabe terá mais sorte na próxima!" << endl;
          matrix[*i][*j] = 1;
          viaj.setQtd_andada(viaj.getQtd_andada() + 1);
+         for(int i=0; i<8; i++){
+            vetor[i]=false;
+         }
          return;
       }
       break;
@@ -129,7 +137,7 @@ void changeDimension(int tag, int *i, int *j, string **mat, int *num_matrizes, v
    }
 }
 
-void Funcs_padroes(int tag, int *i, int *j, viajante &viaj, int *val, string **mat, bool *allNonZero, bool **matrix)
+void Funcs_padroes(int tag, int *i, int *j, viajante &viaj, int *val, string **mat, bool *allNonZero, bool **matrix, bool vetor[8])
 {
    switch (tag)
    {
@@ -138,6 +146,10 @@ void Funcs_padroes(int tag, int *i, int *j, viajante &viaj, int *val, string **m
       viaj.setVida(viaj.getVida() - 1);
       viaj.setPerigos_passados(viaj.getPerigos_passados() + 1);
       viaj.setQtd_andada(viaj.getQtd_andada() + 1);
+      for (int i = 0; i < 8; i++)
+      {
+         vetor[i] = false;
+      }
       cout << "\t (*) Você tentou enfrentar um animal selvagem e acabou se machucando " << endl;
       cout << "\t\t ----------------\t\t" << endl;
       cout << "\t\t   Vidas: " << viaj.getVida() << endl;
@@ -152,6 +164,10 @@ void Funcs_padroes(int tag, int *i, int *j, viajante &viaj, int *val, string **m
       viaj.setPocoes(viaj.getPocoes() + 1);
       viaj.setItens_totais(viaj.getItens_totais() + 1);
       viaj.setQtd_andada(viaj.getQtd_andada() + 1);
+      for (int i = 0; i < 8; i++)
+      {
+         vetor[i] = false;
+      }
       cout << "\t (int) Você encontrou uma poção " << endl;
       cout << "\t\t ----------------\t\t" << endl;
       cout << "\t\t    Poçoes: " << viaj.getPocoes() << endl;
@@ -175,7 +191,7 @@ void Funcs_padroes(int tag, int *i, int *j, viajante &viaj, int *val, string **m
             cout << "\t Você não poderá pegar mais itens!" << endl;
             viaj.setPocoes(viaj.getPocoes() - 1);
             viaj.setItens_totais(viaj.getItens_totais() - 1);
-            viaj.setItensNaoPegos(viaj.getItensNaoPegos()+1);
+            viaj.setItensNaoPegos(viaj.getItensNaoPegos() + 1);
          }
       }
       break;
@@ -192,6 +208,7 @@ bool checkIfIsZero(int i, int j, int *num_matrizes, int inital_i, int initial_j,
          cout << "Todo o caminho percorrido é zero! \n FIM DO JOGO" << endl;
          return false;
       }
+      cout<<"Chegou no inicio mas não recolheu todos os itens, novo caminho se inicia!!!"<<endl;
       *mudou_mat = true;
       *allNonZero = true;
    }
@@ -261,8 +278,25 @@ void Output(bool **matrix, string *nomebool, string **mat, string *ss, int total
    cout << "\t Numero de passos: " << viaj.getQtd_andada() << endl;
    cout << "\t Perigos enfrentados: " << viaj.getPerigos_passados() << endl;
    cout << "\t Itens totais que foram colocados na mochila: " << viaj.getItens_totais() << endl;
-   cout<<"\t Itens que foram encontrados "<<((viaj.getItensNaoPegos()) + (viaj.getItens_totais()))<<endl;
+   cout << "\t Itens que foram encontrados " << ((viaj.getItensNaoPegos()) + (viaj.getItens_totais())) << endl;
    cout << "\t Vidas: " << viaj.getVida() << endl;
    cout << "\t Poções: " << viaj.getPocoes() << endl;
    cout << "\t\t --------------------------------------------------------\t\t" << endl;
+}
+
+bool verificaParede(bool vetor[8])
+{
+   int cont = 0;
+   for (int i = 0; i < 8; i++)
+   {
+      if (vetor[i] == true){
+          cont++;
+      }
+   }
+   if (cont == 8){
+      cout<<"NAO E POSSIVEL";
+      return false;
+   }
+      
+   return true;
 }
