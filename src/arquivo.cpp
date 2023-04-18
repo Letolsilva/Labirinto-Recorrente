@@ -143,7 +143,7 @@ void Matriz::walkmatrix(string *ss, string *nome_bool)
    while (this->viaj.getVida() > 0)
    {
       if(verificaParede(vetor)==false){
-         cout<<"Nao e possivel continuar o jogo, voce esta rodeado por paredes"<<endl;
+         cout<<"O viajante esta encurralado por paredes, não é possivel passar!"<<endl;
          break;
       }
      

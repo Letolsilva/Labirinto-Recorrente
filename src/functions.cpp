@@ -278,7 +278,7 @@ void Output(bool **matrix, string *nomebool, string **mat, string *ss, int total
    cout << "\t Numero de passos: " << viaj.getQtd_andada() << endl;
    cout << "\t Perigos enfrentados: " << viaj.getPerigos_passados() << endl;
    cout << "\t Itens totais que foram colocados na mochila: " << viaj.getItens_totais() << endl;
-   cout << "\t Itens que foram encontrados " << ((viaj.getItensNaoPegos()) + (viaj.getItens_totais())) << endl;
+   cout << "\t Itens totais que foram encontrados " << ((viaj.getItensNaoPegos()) + (viaj.getItens_totais())) << endl;
    cout << "\t Vidas: " << viaj.getVida() << endl;
    cout << "\t Poções: " << viaj.getPocoes() << endl;
    cout << "\t\t --------------------------------------------------------\t\t" << endl;
@@ -294,7 +294,6 @@ bool verificaParede(bool vetor[8])
       }
    }
    if (cont == 8){
-      cout<<"NAO E POSSIVEL";
       return false;
    }
       
