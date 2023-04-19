@@ -34,8 +34,7 @@ Ele percorre os mapas (matrizes), nestes existem alguns desafios, sendo eles:
 Exemplo da estrutura das matrizes
 </div>
 
-- Mudança de dimensão: Essas mudanças ocorrem caso ele tente quebrar os limites do mapa, isto vale para qualquer um dos lados da matriz, logo ele consegue abrir um portal que o levrá para outro mapa, isto por K matrizes que existem no arquivo, caso ele chegue na última, ele retorna a matriz 0 (primeira matriz).
-
+- Mudança de dimensão: Essas mudanças ocorrem caso ele tente quebrar os limites do mapa, isto vale para qualquer um dos lados da matriz, logo ele consegue abrir um portal que o levará para outro mapa, isto por K matrizes que existem no arquivo. 
 <div align="center">
 <img src="https://user-images.githubusercontent.com/109817570/232942885-bb81fe63-4a94-40ea-99ab-fbbc9247b4a3.jpeg" width="400px" />
 
@@ -93,8 +92,10 @@ O código está dividido em sete arquivos(exceto os de leitura): Main.cpp, viaja
   * le_arquivo:  A função "le_arquivo" é responsável por ler o arquivo "dataset/input.data", o que possibilita a determinar da quantidade de matrizes e seus tamanhos, que serão utilizados posteriormente para armazenar os valores.  Em seguida, é executado um loop que percorre os valores da matriz e armazena os endereços de memória correspondentes aos índices da matriz na matriz de ponteiros. Na matriz booleana, todos os seus elementos são inicializados com zero. Durante a execução da função, as matrizes são escritas em novos arquivos, conforme a lógica já explicada anteriormente no começo deste tópico. Ao fim, é chamada a função walkmatriz que vai nos permitir andar pelas matrizes lidas.
   
   * walkmatrix: Essa função permite ao jogador caminhar e alcançar os objetivos do jogo. Ela começa no mapa 0, que é a primeira matriz do jogo, e as matrizes de strings e booleanas sempre são as mesmas. Isso significa que, se o jogador está na primeira matriz de strings, ele também está na primeira matriz booleana. No início da função, o usuário escolhe a posição em que deseja iniciar. Se a posição escolhida pelo usuário for uma parede ou fora da dimensão da matriz, a função solicita que ele escolha uma nova posição válida para iniciar o jogo. Mesmo na primeira posição escolhida, o jogador já está sujeito a sofrer danos, encontrar itens ou não encontrar nenhuma poção durante sua jornada. Após escolher a posição inicial, o jogo começa e as posições seguintes são geradas aleatoriamente, seguindo a lógica explicada no tópico objetivos. Elas são implementadas em um switch case, onde entram na condição do número sorteado e realizam as operações correspondentes. Por exemplo, verificar se estão em uma borda e querem ultrapassar para trocar de dimensão, utilizando a função  ``` changeDimension``` ou mover para a posição gerada e realizar as ações correspondentes a ela usando a função  ``` Funcs_padroes``` , verificar se o item na posição é igual a zero ou se é uma barreira, se for barreira, o viajante permanece na posição atual e uma nova posição é gerada. Após cada iteração, é verificado se a vida do viajante é maior que zero e se o caminho percorrido é igual a zero, utilizando a função  ``` checkIfIsZero```. Quanado alguma das condições de paradas for alcançada, a função  ``` salvar_matriz``` é chamada para salvar as alterações na matriz e, em seguida, a função  ``` output``` chamada para mostrar os dados finais e gerar o arquivo de saída com as matrizes alteradas. 
-  </p>
-  <!-- por no final dps so para nn esquecer -->
+ 
+ As funções apresentadas refletem a lógica utilizada para atingir todos os objetivos propostos no exercício.
+</p>
+
 <h4> Casos especiais</h4>
 
 - Se ele estiver cercado por paredes, isso significa que não será capaz de andar, e consequentemente, o programa irá se encerrar, para isto é utilizado a função ``` verificaParede```.
@@ -104,7 +105,19 @@ O código está dividido em sete arquivos(exceto os de leitura): Main.cpp, viaja
 Esta imagem representa uma posição acessível cercada por barreiras. Todas as posições podem ser geradas, mas nenhuma delas pode ser acessada. Caso isso ocorra, o programa será encerrado.
 </div>
 
-- <b>Observação:</b> O caminho que precisa ser gerado é atualizado sempre que ele retorna à posição inicial. Por exemplo, se ele chegar na posição inicial e o caminho anterior não estiver vazio, ele começará um novo caminho.
+-  Caso o usuário tente ultrapassar algum limite da matriz, utiliza-se a função ``` changeDimension``` que avança para a próxima matriz. Se a última matriz for atingida, a função retorna à matriz 0 (primeira matriz). A posição inicial definida pelo usuário é utilizada para se iniciar a cada mudança de matriz, exceto se houver uma barreira nessa posição. Nesse caso, uma nova posição será gerada aleatoriamente.
+
+-  O caminho que precisa ser gerado é atualizado sempre que ele retorna à posição inicial. Por exemplo, se ele chegar na posição inicial e o caminho anterior não estiver vazio, ele começará um novo caminho.
+
+<h2> Exemplo de execução </h2>
+
+<h2> Custo Computacional </h2>
+<p align="justify">
+O custo computacional deste algortimo não pode ser calculado, pois um algoritmo sortido apresenta as posições geradas aleatoriamente, que não podem ser previstas, porque são resultado de um processo imprevisível que depende de fatores como a semente inicial, isto pode ser embasado na lógica da probabilidade de Bernoulli que é um modelo matemático que assume apenas dois valores 1 se ocorrer sucesso (S) e 0 se ocorrer fracasso (F), com probabilidade de sucesso p.
+
+</p>
+<h2> Conclusão </h2>
+
  <h2> Compilação e Execução </h2>
 
 Esse código possui um arquivo Makefile que realiza todo o procedimento de compilação e execução. Após temos as seguintes diretrizes de execução:
