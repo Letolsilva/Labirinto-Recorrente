@@ -3,7 +3,7 @@
 Matriz::Matriz() : viaj()
 {
    this->tam = 0;
-   this->profundidade = 0;
+   this->numMatriz = 0;
 }
 void Matriz::setTam(short int tam)
 {
@@ -14,13 +14,13 @@ short int Matriz::getTam()
    return this->tam;
 }
 
-void Matriz::setProfundidade(short int profundidade)
+void Matriz::setNumMatriz(short int numMatriz)
 {
-   this->profundidade = profundidade;
+   this->numMatriz = numMatriz;
 }
-short int Matriz::getProfundidade()
+short int Matriz::getNumMatriz()
 {
-   return this->profundidade;
+   return this->numMatriz;
 }
 
 void Matriz::le_arquivo()
@@ -29,7 +29,7 @@ void Matriz::le_arquivo()
    arq.open("dataset/input.data");
    if (!(arq.is_open()))
    {
-      printf("ERRO ao abrir arquivo");
+      cout << ("Erro ao abrir arquivo dataset/input");
       exit(-1);
    }
    string leitura;
@@ -37,18 +37,18 @@ void Matriz::le_arquivo()
    arq >> leitura >> leitura;
    setTam(stoi(leitura));
    arq >> leitura;
-   setProfundidade(stoi(leitura));
+   setNumMatriz(stoi(leitura));
 
-   int produndidadeMatriz = 0, newLine = getProfundidade() - 1;
-   while (!arq.eof() && newLine != ((getTam() * getProfundidade()) + getProfundidade() - 1))
+   short int produndidadeMatriz = 0, newLine = getNumMatriz() - 1;
+   while (!arq.eof() && newLine != ((getTam() * getNumMatriz()) + getNumMatriz() - 1))
    {
       this->mat = new string *[getTam()];
       this->matrix = new bool *[getTam()];
-      for (int i = 0; i < getTam(); i++)
+      for (short int i = 0; i < getTam(); i++)
       {
          this->mat[i] = new string[getTam()];
          this->matrix[i] = new bool[getTam()];
-         for (int j = 0; j < getTam(); j++)
+         for (short int j = 0; j < getTam(); j++)
          {
             arq >> this->mat[i][j];
          }
@@ -64,9 +64,9 @@ void Matriz::le_arquivo()
          cout << "Error ao escrever no arquivo!" << endl;
          return;
       }
-      for (int i = 0; i < getTam(); i++)
+      for (short int i = 0; i < getTam(); i++)
       {
-         for (int j = 0; j < getTam(); j++)
+         for (short int j = 0; j < getTam(); j++)
          {
             outputFile << this->mat[i][j] << " ";
             file_bool << 0 << " ";
@@ -76,19 +76,18 @@ void Matriz::le_arquivo()
       }
       outputFile.close();
       file_bool.close();
-      // cout << produndidadeMatriz << endl;
       produndidadeMatriz++;
    }
    arq.close();
    walkmatrix(&ss, &nome_bool);
 }
 
-void Matriz::imprimir(int num_matrizes)
+void Matriz::imprimir(short int num_matrizes)
 {
    cout << "\n MAPA " << num_matrizes << endl;
-   for (int i = 0; i < getTam(); i++)
+   for (short int i = 0; i < getTam(); i++)
    {
-      for (int j = 0; j < getTam(); j++)
+      for (short int j = 0; j < getTam(); j++)
       {
          cout << "\t" << this->mat[i][j];
       }
@@ -99,12 +98,13 @@ void Matriz::imprimir(int num_matrizes)
 
 void Matriz::walkmatrix(string *ss, string *nome_bool)
 {
-   int error = 0, aleatorio, i = 0, j = 0, val, initial_lin = 0, initial_col = 0;
+   short int error = 0, aleatorio, i = 0, j = 0, val, initial_lin = 0, initial_col = 0;
    bool allNonZero = true, mudou_mat = true;
-   
-   *ss = "dataset/matriz" + to_string(0) + ".data"; // iniciar com a 0
+
+   *ss = "dataset/matriz" + to_string(0) + ".data"; // iniciar com as matrizes  0
    *nome_bool = "dataset/matrizbool" + to_string(0) + ".data";
    nova_matriz(getTam(), this->mat, ss, this->matrix, nome_bool);
+
    cout << " \t O primeiro mapa a ser explorado sera : " << endl;
    imprimir(this->num_matrizes);
    do
@@ -112,7 +112,7 @@ void Matriz::walkmatrix(string *ss, string *nome_bool)
       error = 0;
       cout << " \n Seja bem vindo viajante! \n Por onde você deseja começar? (x,y)" << endl;
       cin >> initial_lin >> initial_col;
-      if ((this->mat[initial_lin][initial_col] == "#") || initial_lin < 0 || initial_lin > getTam() - 1 || initial_col < 0 || initial_col > getTam() - 1 )
+      if ((this->mat[initial_lin][initial_col] == "#") || initial_lin < 0 || initial_lin > getTam() - 1 || initial_col < 0 || initial_col > getTam() - 1)
       {
          cout << "Digite uma posição valida" << endl;
          error = 1;
@@ -121,7 +121,7 @@ void Matriz::walkmatrix(string *ss, string *nome_bool)
    } while (error == 1);
    i = initial_lin;
    j = initial_col;
-
+   // perigos iniciais
    if (this->mat[i][j] == "*")
    {
       Funcs_padroes(0, &i, &j, viaj, &val, this->mat, &allNonZero, this->matrix, this->vetor);
@@ -132,91 +132,87 @@ void Matriz::walkmatrix(string *ss, string *nome_bool)
    }
    else if (stoi(this->mat[i][j]) == 0)
    {
-      cout << "Itens esgotados nesta posição quem sabe terá mais sorte na próxima!" << endl;
       this->matrix[i][j] = 1;
       this->viaj.setQtd_andada(this->viaj.getQtd_andada() + 1);
    }
-   cout << "\t MAPA ATUALIZADO " << endl;
-   imprimir(this->num_matrizes);
    srand(time(NULL));
 
    while (this->viaj.getVida() > 0)
    {
-      if(verificaParede(vetor)==false){
-         cout<<"O viajante esta encurralado por paredes, não é possivel passar!"<<endl;
+      // condiçoes de parada
+      if (verificaParede(vetor) == false)
+      {
+         cout << "\n\t O viajante esta encurralado por paredes, não é possivel passar!" << endl;
          break;
       }
-     
+
       if (checkIfIsZero(i, j, &num_matrizes, initial_lin, initial_col, &allNonZero, &mudou_mat) == false)
       {
          salvar_matriz(getTam(), this->mat, ss, this->matrix, nome_bool);
          break;
       }
       aleatorio = rand() % 8 + 1;
-      
-       //aleatorio = 8;
-      cout << "\n Número gerado: " << aleatorio << endl;
+      // 1- cima , 2- baixo , 3- esquerda, 4 - direita , 5- diagonal direita, 6 - diagonal esquerda, 7 - diagonal cima direita, 8 - diagonal cima esquerda
       switch (aleatorio)
       {
       case 1:
-         cout << " CIMA " << endl;
-         if ((i == 0) && (this->num_matrizes != getProfundidade() - 1))
+         // mudança de dimensão
+         if ((i == 0) && (this->num_matrizes != getNumMatriz() - 1))
          {
             changeDimension(1, &i, &j, this->mat, &this->num_matrizes, viaj, &val, ss, getTam(), &mudou_mat, &allNonZero, this->matrix, nome_bool, initial_lin, initial_col, this->vetor);
-            imprimir(this->num_matrizes);
+
             break;
          }
-         else if (((i) == 0) && (this->num_matrizes == getProfundidade() - 1))
+         else if (((i) == 0) && (this->num_matrizes == getNumMatriz() - 1))
          {
             changeDimension(2, &i, &j, this->mat, &this->num_matrizes, viaj, &val, ss, getTam(), &mudou_mat, &allNonZero, this->matrix, nome_bool, initial_lin, initial_col, this->vetor);
-            imprimir(this->num_matrizes);
+
             break;
          }
+         // andar pela matriz
          i--;
-         if (this->mat[i][j] == "*")
+         if (this->mat[i][j] == "*") // perigo
          {
             Funcs_padroes(0, &i, &j, viaj, &val, this->mat, &allNonZero, this->matrix, this->vetor);
             break;
          }
-         if (this->mat[i][j] == "#")
+         if (this->mat[i][j] == "#") // barreira
          {
-            i++;
-            cout << "\t (#) Havia uma parede não é possivel ir para esta posição";
-            this->vetor[0]=true;
+            i++;  //para retornar para posiçao que estava 
+            this->vetor[0] = true; //usado para verificar se todas as direçoes sao barreiras
             break;
          }
-         if (stoi(this->mat[i][j]) > 0 && this->mat[i][j] != "*" && this->mat[i][j] != "#")
+         if (stoi(this->mat[i][j]) > 0 && this->mat[i][j] != "*" && this->mat[i][j] != "#") // short inteiro
          {
             Funcs_padroes(1, &i, &j, viaj, &val, this->mat, &allNonZero, this->matrix, this->vetor);
-            vetor[0]=false;
-            imprimir(this->num_matrizes);
+            vetor[0] = false;
          }
-         else
+         else // valor da posição é zero, não pega item
          {
-            cout << "\t Itens esgotados nesta posição quem sabe terá mais sorte na próxima!" << endl;
             this->matrix[i][j] = 1;
             this->viaj.setQtd_andada(this->viaj.getQtd_andada() + 1);
-            for(int i=0; i<8; i++){
-              this-> vetor[i]=false;
+            for (short int i = 0; i < 8; i++)
+            {
+               this->vetor[i] = false; //se uma não for barreira todo o vetor é false
             }
-            imprimir(this->num_matrizes);
          }
          break;
       case 2:
-         cout << " BAIXO " << endl;
-         if ((i == getTam() - 1) && (this->num_matrizes != getProfundidade() - 1))
+         if ((i == getTam() - 1) && (this->num_matrizes != getNumMatriz() - 1))
          {
             changeDimension(1, &i, &j, this->mat, &this->num_matrizes, viaj, &val, ss, getTam(), &mudou_mat, &allNonZero, this->matrix, nome_bool, initial_lin, initial_col, this->vetor);
-            imprimir(this->num_matrizes);
+
             break;
          }
-         else if ((i == getTam() - 1) && (this->num_matrizes == getProfundidade() - 1))
+         else if ((i == getTam() - 1) && (this->num_matrizes == getNumMatriz() - 1))
          {
             changeDimension(2, &i, &j, this->mat, &this->num_matrizes, viaj, &val, ss, getTam(), &mudou_mat, &allNonZero, this->matrix, nome_bool, initial_lin, initial_col, this->vetor);
-            imprimir(this->num_matrizes);
+
             break;
          }
+
          i++;
+
          if (this->mat[i][j] == "*")
          {
             Funcs_padroes(0, &i, &j, viaj, &val, this->mat, &allNonZero, this->matrix, this->vetor);
@@ -225,43 +221,42 @@ void Matriz::walkmatrix(string *ss, string *nome_bool)
          if (this->mat[i][j] == "#")
          {
             i--;
-            cout << "\t (#) Havia uma parede não é possivel ir para esta posição";
-            this->vetor[1]=true;
+
+            this->vetor[1] = true;
             break;
          }
 
          if (stoi(this->mat[i][j]) > 0 && this->mat[i][j] != "*" && this->mat[i][j] != "#")
          {
             Funcs_padroes(1, &i, &j, viaj, &val, this->mat, &allNonZero, this->matrix, this->vetor);
-            imprimir(this->num_matrizes);
          }
          else
          {
-            cout << "\t Itens esgotados nesta posição quem sabe terá mais sorte na próxima!" << endl;
             this->matrix[i][j] = 1;
             this->viaj.setQtd_andada(this->viaj.getQtd_andada() + 1);
-             for(int i=0; i<8; i++){
-               this->vetor[i]=false;
+            for (short int i = 0; i < 8; i++)
+            {
+               this->vetor[i] = false;
             }
-            imprimir(this->num_matrizes);
          }
          break;
 
       case 3:
-         cout << " ESQUERDA " << endl;
-         if ((j == 0) && (this->num_matrizes != getProfundidade() - 1))
+         if ((j == 0) && (this->num_matrizes != getNumMatriz() - 1))
          {
             changeDimension(1, &i, &j, this->mat, &this->num_matrizes, viaj, &val, ss, getTam(), &mudou_mat, &allNonZero, this->matrix, nome_bool, initial_lin, initial_col, this->vetor);
-            imprimir(this->num_matrizes);
+
             break;
          }
-         else if ((j == 0) && (this->num_matrizes == getProfundidade() - 1))
+         else if ((j == 0) && (this->num_matrizes == getNumMatriz() - 1))
          {
             changeDimension(2, &i, &j, this->mat, &this->num_matrizes, viaj, &val, ss, getTam(), &mudou_mat, &allNonZero, this->matrix, nome_bool, initial_lin, initial_col, this->vetor);
-            imprimir(this->num_matrizes);
+
             break;
          }
+
          j--;
+
          if (this->mat[i][j] == "*")
          {
             Funcs_padroes(0, &i, &j, viaj, &val, this->mat, &allNonZero, this->matrix, this->vetor);
@@ -270,43 +265,43 @@ void Matriz::walkmatrix(string *ss, string *nome_bool)
          if (this->mat[i][j] == "#")
          {
             j++;
-            cout << "\t (#) Havia uma parede não é possivel ir para esta posição";
-            this->vetor[2]=true;
+
+            this->vetor[2] = true;
             break;
          }
 
          if (stoi(this->mat[i][j]) > 0 && this->mat[i][j] != "*" && this->mat[i][j] != "#")
          {
             Funcs_padroes(1, &i, &j, viaj, &val, this->mat, &allNonZero, this->matrix, this->vetor);
-            imprimir(this->num_matrizes);
          }
          else
          {
-            cout << "\t Itens esgotados nesta posição quem sabe terá mais sorte na próxima!" << endl;
+
             this->matrix[i][j] = 1;
             this->viaj.setQtd_andada(this->viaj.getQtd_andada() + 1);
-             for(int i=0; i<8; i++){
-               this->vetor[i]=false;
+            for (short int i = 0; i < 8; i++)
+            {
+               this->vetor[i] = false;
             }
-            imprimir(this->num_matrizes);
          }
          break;
 
       case 4:
-         cout << " DIREITA " << endl;
-         if ((j == getTam() - 1) && (this->num_matrizes != getProfundidade() - 1))
+         if ((j == getTam() - 1) && (this->num_matrizes != getNumMatriz() - 1))
          {
             changeDimension(1, &i, &j, this->mat, &this->num_matrizes, viaj, &val, ss, getTam(), &mudou_mat, &allNonZero, this->matrix, nome_bool, initial_lin, initial_col, this->vetor);
-            imprimir(this->num_matrizes);
+
             break;
          }
-         else if ((j == getTam() - 1) && (this->num_matrizes == getProfundidade() - 1))
+         else if ((j == getTam() - 1) && (this->num_matrizes == getNumMatriz() - 1))
          {
             changeDimension(2, &i, &j, this->mat, &this->num_matrizes, viaj, &val, ss, getTam(), &mudou_mat, &allNonZero, this->matrix, nome_bool, initial_lin, initial_col, this->vetor);
-            imprimir(this->num_matrizes);
+
             break;
          }
+
          j++;
+
          if (this->mat[i][j] == "*")
          {
             Funcs_padroes(0, &i, &j, viaj, &val, this->mat, &allNonZero, this->matrix, this->vetor);
@@ -315,43 +310,42 @@ void Matriz::walkmatrix(string *ss, string *nome_bool)
          if (this->mat[i][j] == "#")
          {
             j--;
-            cout << "\t (#) Havia uma parede não é possivel ir para esta posição";
-            this->vetor[3]=true;
+            this->vetor[3] = true;
             break;
          }
 
          if (stoi(this->mat[i][j]) > 0 && this->mat[i][j] != "*" && this->mat[i][j] != "#")
          {
             Funcs_padroes(1, &i, &j, viaj, &val, this->mat, &allNonZero, this->matrix, this->vetor);
-            imprimir(this->num_matrizes);
          }
          else
          {
-            cout << "\t Itens esgotados nesta posição quem sabe terá mais sorte na próxima!" << endl;
+
             this->matrix[i][j] = 1;
             this->viaj.setQtd_andada(this->viaj.getQtd_andada() + 1);
-             for(int i=0; i<8; i++){
-               this->vetor[i]=false;
+            for (short int i = 0; i < 8; i++)
+            {
+               this->vetor[i] = false;
             }
-            imprimir(this->num_matrizes);
          }
          break;
       case 5:
-         cout << "DIAGONAL DIREITA " << endl;
-         if (((i == getTam() - 1) || (j == getTam() - 1)) && !(this->num_matrizes == getProfundidade() - 1))
+         if (((i == getTam() - 1) || (j == getTam() - 1)) && !(this->num_matrizes == getNumMatriz() - 1))
          {
             changeDimension(1, &i, &j, this->mat, &this->num_matrizes, viaj, &val, ss, getTam(), &mudou_mat, &allNonZero, this->matrix, nome_bool, initial_lin, initial_col, this->vetor);
-            imprimir(this->num_matrizes);
+
             break;
          }
-         else if (((i == getTam() - 1) || (j == getTam() - 1)) && (this->num_matrizes == getProfundidade() - 1))
+         else if (((i == getTam() - 1) || (j == getTam() - 1)) && (this->num_matrizes == getNumMatriz() - 1))
          {
             changeDimension(2, &i, &j, this->mat, &this->num_matrizes, viaj, &val, ss, getTam(), &mudou_mat, &allNonZero, this->matrix, nome_bool, initial_lin, initial_col, this->vetor);
-            imprimir(this->num_matrizes);
+
             break;
          }
+
          i++;
          j++;
+
          if (this->mat[i][j] == "*")
          {
             Funcs_padroes(0, &i, &j, viaj, &val, this->mat, &allNonZero, this->matrix, this->vetor);
@@ -361,42 +355,41 @@ void Matriz::walkmatrix(string *ss, string *nome_bool)
          {
             i--;
             j--;
-            this->vetor[4]=true;
-            cout << "\t (#) Havia uma parede não é possivel ir para esta posição";
+            this->vetor[4] = true;
             break;
          }
          if (stoi(this->mat[i][j]) > 0 && this->mat[i][j] != "*" && this->mat[i][j] != "#")
          {
             Funcs_padroes(1, &i, &j, viaj, &val, this->mat, &allNonZero, this->matrix, this->vetor);
-            imprimir(this->num_matrizes);
          }
          else
          {
-            cout << "\t Itens esgotados nesta posição quem sabe terá mais sorte na próxima!" << endl;
+
             this->matrix[i][j] = 1;
             this->viaj.setQtd_andada(this->viaj.getQtd_andada() + 1);
-             for(int i=0; i<8; i++){
-            this->vetor[i]=false;
+            for (short int i = 0; i < 8; i++)
+            {
+               this->vetor[i] = false;
             }
-            imprimir(this->num_matrizes);
          }
          break;
       case 6:
-         cout << " DIAGONAL ESQUERDA " << endl;
-         if (((j == 0) || (i == getTam() - 1)) && !(this->num_matrizes == getProfundidade() - 1))
+         if (((j == 0) || (i == getTam() - 1)) && !(this->num_matrizes == getNumMatriz() - 1))
          {
             changeDimension(1, &i, &j, this->mat, &this->num_matrizes, viaj, &val, ss, getTam(), &mudou_mat, &allNonZero, this->matrix, nome_bool, initial_lin, initial_col, this->vetor);
-            imprimir(this->num_matrizes);
+
             break;
          }
-         else if (((j == 0) || (i == getTam() - 1)) && (this->num_matrizes == getProfundidade() - 1))
+         else if (((j == 0) || (i == getTam() - 1)) && (this->num_matrizes == getNumMatriz() - 1))
          {
             changeDimension(2, &i, &j, this->mat, &this->num_matrizes, viaj, &val, ss, getTam(), &mudou_mat, &allNonZero, this->matrix, nome_bool, initial_lin, initial_col, this->vetor);
-            imprimir(this->num_matrizes);
+
             break;
          }
+
          i++;
          j--;
+
          if (this->mat[i][j] == "*")
          {
             Funcs_padroes(0, &i, &j, viaj, &val, this->mat, &allNonZero, this->matrix, this->vetor);
@@ -406,43 +399,43 @@ void Matriz::walkmatrix(string *ss, string *nome_bool)
          {
             i--;
             j++;
-            this->vetor[5]=true;
-            cout << "\t (#) Havia uma parede não é possivel ir para esta posição";
+            this->vetor[5] = true;
+
             break;
          }
 
          if (stoi(this->mat[i][j]) > 0 && this->mat[i][j] != "*" && this->mat[i][j] != "#")
          {
             Funcs_padroes(1, &i, &j, viaj, &val, this->mat, &allNonZero, this->matrix, this->vetor);
-            imprimir(this->num_matrizes);
          }
          else
          {
-            cout << "\t Itens esgotados nesta posição quem sabe terá mais sorte na próxima!" << endl;
+
             this->matrix[i][j] = 1;
             this->viaj.setQtd_andada(this->viaj.getQtd_andada() + 1);
-             for(int i=0; i<8; i++){
-               this->vetor[i]=false;
+            for (short int i = 0; i < 8; i++)
+            {
+               this->vetor[i] = false;
             }
-            imprimir(this->num_matrizes);
          }
          break;
       case 7:
-         cout << " DIAGONAL CIMA DIREITA " << endl;
-         if (((i == 0) || (j == getTam() - 1)) && !(this->num_matrizes == getProfundidade() - 1))
+         if (((i == 0) || (j == getTam() - 1)) && !(this->num_matrizes == getNumMatriz() - 1))
          {
             changeDimension(1, &i, &j, this->mat, &this->num_matrizes, viaj, &val, ss, getTam(), &mudou_mat, &allNonZero, this->matrix, nome_bool, initial_lin, initial_col, this->vetor);
-            imprimir(this->num_matrizes);
+
             break;
          }
-         else if (((i == 0) || (j == getTam() - 1)) && (this->num_matrizes == getProfundidade() - 1))
+         else if (((i == 0) || (j == getTam() - 1)) && (this->num_matrizes == getNumMatriz() - 1))
          {
             changeDimension(2, &i, &j, this->mat, &this->num_matrizes, viaj, &val, ss, getTam(), &mudou_mat, &allNonZero, this->matrix, nome_bool, initial_lin, initial_col, this->vetor);
-            imprimir(this->num_matrizes);
+
             break;
          }
+
          i--;
          j++;
+
          if (this->mat[i][j] == "*")
          {
             Funcs_padroes(0, &i, &j, viaj, &val, this->mat, &allNonZero, this->matrix, this->vetor);
@@ -452,43 +445,43 @@ void Matriz::walkmatrix(string *ss, string *nome_bool)
          {
             i++;
             j--;
-            this->vetor[6]=true;
-            cout << "\t (#) Havia uma parede não é possivel ir para esta posição";
+            this->vetor[6] = true;
+
             break;
          }
 
          if (stoi(this->mat[i][j]) > 0 && this->mat[i][j] != "*" && this->mat[i][j] != "#")
          {
             Funcs_padroes(1, &i, &j, viaj, &val, this->mat, &allNonZero, this->matrix, this->vetor);
-            imprimir(this->num_matrizes);
          }
          else
          {
-            cout << "\t Itens esgotados nesta posição quem sabe terá mais sorte na próxima!" << endl;
+
             this->matrix[i][j] = 1;
             this->viaj.setQtd_andada(this->viaj.getQtd_andada() + 1);
-             for(int i=0; i<8; i++){
-             this->vetor[i]=false;
+            for (short int i = 0; i < 8; i++)
+            {
+               this->vetor[i] = false;
             }
-            imprimir(this->num_matrizes);
          }
          break;
       case 8:
-         cout << " DIAGONAL CIMA ESQUERDA " << endl;
-         if (((i == 0) || (j == 0)) && !(this->num_matrizes == getProfundidade() - 1))
+         if (((i == 0) || (j == 0)) && !(this->num_matrizes == getNumMatriz() - 1))
          {
             changeDimension(1, &i, &j, this->mat, &this->num_matrizes, viaj, &val, ss, getTam(), &mudou_mat, &allNonZero, this->matrix, nome_bool, initial_lin, initial_col, this->vetor);
-            imprimir(this->num_matrizes);
+
             break;
          }
-         else if (((i == 0) || (j == 0)) && (this->num_matrizes == getProfundidade() - 1))
+         else if (((i == 0) || (j == 0)) && (this->num_matrizes == getNumMatriz() - 1))
          {
             changeDimension(2, &i, &j, this->mat, &this->num_matrizes, viaj, &val, ss, getTam(), &mudou_mat, &allNonZero, this->matrix, nome_bool, initial_lin, initial_col, this->vetor);
-            imprimir(this->num_matrizes);
+
             break;
          }
+
          i--;
          j--;
+
          if (this->mat[i][j] == "*")
          {
             Funcs_padroes(0, &i, &j, viaj, &val, this->mat, &allNonZero, this->matrix, this->vetor);
@@ -498,41 +491,34 @@ void Matriz::walkmatrix(string *ss, string *nome_bool)
          {
             i++;
             j++;
-            this->vetor[7]=true;
-            cout << "\t (#)  Havia uma parede não é possivel ir para esta posição";
+            this->vetor[7] = true;
             break;
          }
          if (stoi(this->mat[i][j]) > 0 && this->mat[i][j] != "*" && this->mat[i][j] != "#")
          {
             Funcs_padroes(1, &i, &j, viaj, &val, this->mat, &allNonZero, this->matrix, this->vetor);
-            imprimir(this->num_matrizes);
          }
          else
          {
-            cout << "\t Itens esgotados nesta posição quem sabe terá mais sorte na próxima!" << endl;
+
             this->matrix[i][j] = 1;
             this->viaj.setQtd_andada(this->viaj.getQtd_andada() + 1);
-            for(int i=0; i<8; i++){
-               this->vetor[i]=false;
+            for (short int i = 0; i < 8; i++)
+            {
+               this->vetor[i] = false;
             }
-            imprimir(this->num_matrizes);
          }
          break;
       default:
          break;
       }
    }
+   //fim do while = fim do jogo
    this->num_matrizes = 0;
    salvar_matriz(getTam(), this->mat, ss, this->matrix, nome_bool);
    if (viaj.getVida() == 0)
    {
-      cout << "\t (*) O animal era mais forte do que você esperava e você acabou morrendo " << endl;
-      cout << "\t\t ----------------\t\t" << endl;
-      cout << "\t\t   DADOS FINAIS " << endl;
-      cout << "\t\t    Vidas: " << viaj.getVida() << endl;
-      cout << "\t\t   Poçoes: " << viaj.getPocoes() << endl;
-      cout << "\t\t ---------------- \t\t" << endl;
-      cout << "\t\t \n FIM DO JOGO " << endl;
+      cout << "\n\t (*) O animal era mais forte do que você esperava e você acabou morrendo " << endl;
    }
-   Output(this->matrix, nome_bool, this->mat, ss, getProfundidade(), getTam(), this->positionsNoaccessed, &this->num_matrizes, this->positionsAccessed, viaj);
+   Output(this->matrix, nome_bool, this->mat, ss, getNumMatriz(), getTam(), this->positionsNoaccessed, &this->num_matrizes, this->positionsAccessed, viaj);
 }
