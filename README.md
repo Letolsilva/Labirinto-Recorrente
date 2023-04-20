@@ -87,6 +87,8 @@ O código está dividido em sete arquivos(exceto os de leitura): Main.cpp, viaja
   
   * verificaParede: A função "verificaParede" recebe um vetor booleano que verifica se as oito posições possíveis para se mover são paredes. Se todas as posições forem paredes, cada uma delas receberá true e a função retorna false, indicando que o viajante não pode sair daquela posição e o jogo chega ao fim. Caso contrário, a função retorna true, significando que existe pelo ao menos uma posição possível de andar.
   
+  * RemoveFile: A função remove os arquivos adicionados durante a execução do codigo, ela é implementada no fim do jogo.
+  
 * ```arquivo.hpp```: Contém as declarações das classes, funções, variáveis e constantes que são usadas no programa, referente as matrizes. 
 * ```arquivo.cpp```: Implementação das funções, sendo elas le_arquivo e walkmatriz.
   * le_arquivo:  A função "le_arquivo" é responsável por ler o arquivo "dataset/input.data", o que possibilita a determinar da quantidade de matrizes e seus tamanhos, que serão utilizados posteriormente para armazenar os valores.  Em seguida, é executado um loop que percorre os valores da matriz e armazena os endereços de memória correspondentes aos índices da matriz na matriz de ponteiros. Na matriz booleana, todos os seus elementos são inicializados com zero. Durante a execução da função, as matrizes são escritas em novos arquivos, conforme a lógica já explicada anteriormente no começo deste tópico. Ao fim, é chamada a função walkmatriz que vai nos permitir andar pelas matrizes lidas.
@@ -110,13 +112,36 @@ Esta imagem representa uma posição acessível cercada por barreiras. Todas as 
 -  O caminho que precisa ser gerado é atualizado sempre que ele retorna à posição inicial. Por exemplo, se ele chegar na posição inicial e o caminho anterior não estiver vazio, ele começará um novo caminho.
 
 <h2> Exemplo de execução </h2>
+<center>
+<table>
+   <tr>
+      <td>Input</td>
+      <td>Inserir posição</td>
+      <td>Output</td>
+   </tr>
+   <tr>
+      <td><img src="https://user-images.githubusercontent.com/109817570/233237512-4f23022f-82f3-4d3f-bad5-119940460a8d.png"/></td>
+      <td><img src="https://user-images.githubusercontent.com/109817570/233238442-290601dc-9f5d-4773-ac4b-b8b7784fef7b.png"/></td>
+      <td><img src="" /></td>
+   </tr>
+</table>
+</center> 
+
+<b> As unicas informaçoes que aparecem no terminal são: </b>
+- A primeira matriz que vai ser explorada
+- O pedido para digitar a posição inicial
+- O aviso que começou um novo caminho
+- O motivo do jogo ter terminado
+- Os dados finais
 
 <h2> Custo Computacional </h2>
 <p align="justify">
-O custo computacional deste algortimo não pode ser calculado, pois um algoritmo sortido apresenta as posições geradas aleatoriamente, que não podem ser previstas, porque são resultado de um processo imprevisível que depende de fatores como a semente inicial, isto pode ser embasado na lógica da probabilidade de Bernoulli que é um modelo matemático que assume apenas dois valores 1 se ocorrer sucesso (S) e 0 se ocorrer fracasso (F), com probabilidade de sucesso p.
+O custo computacional deste algoritmo não pode ser previsto, uma vez que ele utiliza posições geradas aleatoriamente, que dependem de fatores imprevisíveis. Isso pode ser explicado pela probabilidade de Bernoulli, um conceito estatístico que se refere à chance de um evento binário ocorrer, sendo 1 se ocorrer sucesso (S) e 0 se ocorrer fracasso (F), com uma probabilidade de sucesso p. Neste algoritmo aleatório, a probabilidade de Bernoulli pode ser usada para determinar a chance de seguir um caminho específico em relação a outro, mas não é possível prever qual vai ser ou como ele ocorrerá o trajeto do viajante devido ao algoritmo e a forma na qual ele foi estruturado.
 
 </p>
 <h2> Conclusão </h2>
+
+Com este algoritmo, é possível compreender bem o percurso em matrizes, principalmente quando é feito de forma aleatória. Podendo analisar aspectos como o custo computacional, o espaço de memória utilizado, o tempo de execução e o jogo em si, no qual percebe que as chances de o viajante conseguir sair do labirinto diminuem à medida que há mais matrizes, sobretudo quando se movimenta aleatoriamente. O uso deste algoritmo possibilita uma melhor compreensão da estrutura de matrizes e entender algoritimos com informações não determinadas, proporcionando uma nova perspectiva que pode ser aplicada em outros projetos.
 
  <h2> Compilação e Execução </h2>
 
