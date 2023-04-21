@@ -24,7 +24,7 @@ Neste jogo temos o Viajante perdido em um labirinto, ele tem consigo:
 
 Ele percorre os mapas (matrizes), nestes existem alguns desafios, sendo eles:
 
-- Perigos selvagens (*): Estes perigos são representados por '*' (asterisco), ele dão um de dano no viajante.
+- Perigos selvagens ( * ): Estes perigos são representados por ' * ' (asterisco), ele dão um de dano no viajante.
 - Barreiras (#): As barreiras não permitem o prsonagem entrar naquela determinada posição, sendo assim, ele terá que desviar e continuar o caminho, logo é gerado nova posição i,j caso ele se depare com alguma.
 - Mapas: Os mapas são compostos de números que representam a quantidade de poções existentes naquela posição, cada vez que se passa por uma é extraido 1 daquele local, até chegar em 0, o que significa que não terá mais itens para serem pegos ali, essas posições continuam sendo utilizadas normalmente.
 
