@@ -126,7 +126,7 @@ Esta imagem representa uma posição acessível cercada por barreiras. Todas as 
    <tr>
       <td><img src="https://user-images.githubusercontent.com/109817570/233237512-4f23022f-82f3-4d3f-bad5-119940460a8d.png"/></td>
       <td><img src="https://user-images.githubusercontent.com/109817570/233238442-290601dc-9f5d-4773-ac4b-b8b7784fef7b.png"/></td>
-      <td><img src="" /></td>
+      <td><img src="https://user-images.githubusercontent.com/109817570/233522346-30db3374-70ca-471d-9738-7a2c735d758c.png" /></td>
    </tr>
 </table>
 </center> 
@@ -137,6 +137,7 @@ Esta imagem representa uma posição acessível cercada por barreiras. Todas as 
 - O aviso que começou um novo caminho
 - O motivo do jogo ter terminado
 - Os dados finais
+- Tempo de execução
 
 <h2> Custo Computacional </h2>
 <p align="justify">
