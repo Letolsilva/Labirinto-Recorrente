@@ -1,6 +1,6 @@
 #include "functions.hpp"
 
-void nova_matriz(short int tam, string **mat, string *ss, bool **matrix, string *nomebool) //matriz que sera percorrida
+void nova_matriz(short int tam, string **mat, string *ss, bool **matrix, string *nomebool) // matriz que sera percorrida
 {
    ifstream arq;
    ifstream arqbool;
@@ -8,7 +8,7 @@ void nova_matriz(short int tam, string **mat, string *ss, bool **matrix, string 
    arqbool.open(*nomebool);
    if (!(arq.is_open()) || !(arqbool.is_open()))
    {
-      cout<<("Erro ao abrir arquivo de nova matriz");
+      cout << ("Erro ao abrir arquivo de nova matriz");
       exit(-1);
    }
    for (short int i = 0; i < tam; i++)
@@ -22,7 +22,7 @@ void nova_matriz(short int tam, string **mat, string *ss, bool **matrix, string 
    arq.close();
    arqbool.close();
 }
-void salvar_matriz(short int tam, string **mat, string *ss, bool **matrix, string *nomebool) //salvar as alteraçoes nas matrizes
+void salvar_matriz(short int tam, string **mat, string *ss, bool **matrix, string *nomebool) // salvar as alteraçoes nas matrizes
 {
    ofstream file(*ss);
    ofstream file_bool(*nomebool);
@@ -45,16 +45,16 @@ void changeDimension(short int tag, short int *i, short int *j, string **mat, sh
    switch (tag)
    {
    case 1:
-      salvar_matriz(tam, mat, ss, matrix, nomebool); //salvar a matriz anterior
+      salvar_matriz(tam, mat, ss, matrix, nomebool); // salvar a matriz anterior
 
       *ss = "dataset/matriz" + to_string(*num_matrizes + 1) + ".data";
       *nomebool = "dataset/matrizbool" + to_string(*num_matrizes + 1) + ".data";
 
       (*num_matrizes)++;
-      *mudou_mat = false;  //variavel para verificar que passou de matriz
-      *i = initialLinha;   //inicia na posiçao i , j inicial
+      *mudou_mat = false; // variavel para verificar que passou de matriz
+      *i = initialLinha;  // inicia na posiçao i , j inicial
       *j = initialColuna;
-      nova_matriz(tam, mat, ss, matrix, nomebool); //abrir a proxima matriz 
+      nova_matriz(tam, mat, ss, matrix, nomebool); // abrir a proxima matriz
       while (mat[*i][*j] == "#")
       {
          *i = rand() % (tam - 1);
@@ -83,7 +83,7 @@ void changeDimension(short int tag, short int *i, short int *j, string **mat, sh
       }
       break;
    case 2:
-     //Quando se esta na ultima matrix e vai retornar para inicial
+      // Quando se esta na ultima matrix e vai retornar para inicial
       salvar_matriz(tam, mat, ss, matrix, nomebool);
 
       *ss = "dataset/matriz" + to_string(0) + ".data";
@@ -131,8 +131,8 @@ void Funcs_padroes(short int tag, short int *i, short int *j, viajante &viaj, sh
    switch (tag)
    {
    case 0:
-      //entrou em um perigo
-      matrix[*i][*j] = 1; //matrix booleana
+      // entrou em um perigo
+      matrix[*i][*j] = 1; // matrix booleana
       viaj.setVida(viaj.getVida() - 1);
       viaj.setPerigos_passados(viaj.getPerigos_passados() + 1);
       viaj.setQtd_andada(viaj.getQtd_andada() + 1);
@@ -142,12 +142,12 @@ void Funcs_padroes(short int tag, short int *i, short int *j, viajante &viaj, sh
       }
       break;
    case 1:
-   //entrou em uma posiçao com inteiro
+      // entrou em uma posiçao com inteiro
       matrix[*i][*j] = 1;
-      *allNonZero = false; //verificar se as posiçao sao zero, neste caso não é!
+      *allNonZero = false; // verificar se as posiçao sao zero, neste caso não é!
       *val = stoi(mat[*i][*j]);
       (*val) -= 1;
-      mat[*i][*j] = to_string(*val); //retirar 1 da posiçao
+      mat[*i][*j] = to_string(*val); // retirar 1 da posiçao
       viaj.setPocoes(viaj.getPocoes() + 1);
       viaj.setItens_totais(viaj.getItens_totais() + 1);
       viaj.setQtd_andada(viaj.getQtd_andada() + 1);
@@ -155,14 +155,14 @@ void Funcs_padroes(short int tag, short int *i, short int *j, viajante &viaj, sh
       {
          vetor[i] = false;
       }
-      if (viaj.getPocoes() == 4) //receber uma vida por poçoes
+      if (viaj.getPocoes() == 4) // receber uma vida por poçoes
       {
          if (viaj.getVida() < 10)
          {
             viaj.setPocoes(viaj.getPocoes() - 4);
             viaj.setVida(viaj.getVida() + 1);
          }
-         else //caso a vida seja dez e tenha 4 poçoes
+         else // caso a vida seja dez e tenha 4 poçoes
          {
             viaj.setPocoes(viaj.getPocoes() - 1);
             viaj.setItens_totais(viaj.getItens_totais() - 1);
@@ -174,7 +174,7 @@ void Funcs_padroes(short int tag, short int *i, short int *j, viajante &viaj, sh
       break;
    }
 }
-bool checkIfIsZero(short int i, short int j, short  int *num_matrizes, short int inital_i, short int initial_j, bool *allNonZero, bool *mudou_mat)
+bool checkIfIsZero(short int i, short int j, short int *num_matrizes, short int inital_i, short int initial_j, bool *allNonZero, bool *mudou_mat)
 {
    if ((i == inital_i) && (j == initial_j) && (*num_matrizes == 0) && !(*mudou_mat))
    {
@@ -190,13 +190,13 @@ bool checkIfIsZero(short int i, short int j, short  int *num_matrizes, short int
    return true;
 }
 
-void Output(bool **matrix, string *nomebool, string **mat, string *ss, short int total_mat, short int tam, short  int positionsNoaccessed, short int *num_matrizes, short int positionsAccessed, viajante &viaj)
+void Output(bool **matrix, string *nomebool, string **mat, string *ss, short int total_mat, short int tam, short int positionsNoaccessed, short int *num_matrizes, short int positionsAccessed, viajante &viaj)
 {
    string Output;
    ofstream ArqCaminho;
    ArqCaminho.open("dataset/output.data", ios::app);
    ArqCaminho << "\tOUTPUT- CAMINHOS DESCOBERTOS\t" << endl;
-   for (short int k = 0; k < total_mat; k++) //percorre todas as matrizes
+   for (short int k = 0; k < total_mat; k++) // percorre todas as matrizes
    {
       ifstream arqbool;
       ifstream outputFile;
@@ -208,16 +208,16 @@ void Output(bool **matrix, string *nomebool, string **mat, string *ss, short int
 
       if (!(arqbool.is_open()) || !outputFile.is_open())
       {
-         cout<<("Erro ao abrir arquivo Output");
+         cout << ("Erro ao abrir arquivo Output");
          exit(-1);
       }
       for (short int i = 0; i < tam; i++)
       {
          for (short int j = 0; j < tam; j++)
          {
-            arqbool >> matrix[i][j]; //passa para matriz booleana 
-            outputFile >> mat[i][j]; // passa para matriz de string
-            if (matrix[i][j] == false) //conta quantas posiçoes foram acessadas
+            arqbool >> matrix[i][j];   // passa para matriz booleana
+            outputFile >> mat[i][j];   // passa para matriz de string
+            if (matrix[i][j] == false) // conta quantas posiçoes foram acessadas
             {
                positionsNoaccessed++;
             }
@@ -227,7 +227,7 @@ void Output(bool **matrix, string *nomebool, string **mat, string *ss, short int
             }
          }
       }
-      (*num_matrizes)++; //muda os arquivos que esta sendo lidos
+      (*num_matrizes)++; // muda os arquivos que esta sendo lidos
 
       if (!ArqCaminho.is_open())
       {
@@ -238,7 +238,7 @@ void Output(bool **matrix, string *nomebool, string **mat, string *ss, short int
       {
          for (short int j = 0; j < tam; j++)
          {
-            ArqCaminho << mat[i][j] << " "; //juntas todas as matrizes alteradas em um so arquivo
+            ArqCaminho << mat[i][j] << " "; // juntas todas as matrizes alteradas em um so arquivo
          }
          ArqCaminho << endl;
       }
@@ -247,7 +247,7 @@ void Output(bool **matrix, string *nomebool, string **mat, string *ss, short int
       outputFile.close();
    }
    ArqCaminho.close();
-   cout<<"\n\t\t FIM DO JOGO!\t\t"<<endl;
+   cout << "\n\t\t FIM DO JOGO!\t\t" << endl;
    cout << " \t\t DADOS FINAIS \t\t" << endl;
    cout << "--------------------------------------------------------\t\t" << endl;
    cout << "\t Numero de casas não exploradas: " << positionsNoaccessed << endl;
@@ -277,4 +277,28 @@ bool verificaParede(bool vetor[8])
    }
 
    return true;
+}
+void removeFile(string *nomebool, string *ss, short int total_mat, short int *num_matrizes)
+{
+   *num_matrizes=0;
+   string output = "dataset/output.data";
+   for (short int k = 0; k < total_mat; k++)
+   {
+      *nomebool = "dataset/matrizbool" + to_string(*num_matrizes) + ".data";
+      *ss = "dataset/matriz" + to_string(*num_matrizes) + ".data";
+      int removendoBool = remove(nomebool->c_str());
+      if (removendoBool != 0)
+      {
+         cout<<"Não foi possível remover o arquivo "<< nomebool->c_str()<<endl;
+      }
+      else
+      {
+         int removendoString = remove(ss->c_str());
+         if (removendoString != 0)
+         {
+            cout<<"Não foi possível remover o arquivo "<< ss->c_str()<<endl;
+         }
+      }
+      (*num_matrizes)++;
+   }
 }

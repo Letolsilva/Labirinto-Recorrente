@@ -521,4 +521,5 @@ void Matriz::walkmatrix(string *ss, string *nome_bool)
       cout << "\n\t (*) O animal era mais forte do que você esperava e você acabou morrendo " << endl;
    }
    Output(this->matrix, nome_bool, this->mat, ss, getNumMatriz(), getTam(), this->positionsNoaccessed, &this->num_matrizes, this->positionsAccessed, viaj);
+   removeFile(nome_bool,ss,getNumMatriz(),&this->num_matrizes);
 }

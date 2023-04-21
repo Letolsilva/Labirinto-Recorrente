@@ -56,15 +56,18 @@ Na imagem, é possível observar o viajante atravessando diferentes portais que 
 
 Considerando que se está na posição que recebe o valor 3, as setas representam as posições que podem ser geradas, sendo que a seta em vermelho indica uma posição possível, porém inacessível devido a uma barreira.
 </div>
-
+</p>
+<p align="justify">
 <h4> Condição de parada </h4>
 Para passar por tudo isso, existem um objetivo, sendo ele sair deste labirinto, mas para encontrar a saída ele tem que encontrar muitos itens, o suficiente para zerar as posições do caminho que ele passou, explorar pelo ao menos uma vez todos os mapas e retornar a sua posição de inicial ou ser derrotado pelos animais selvagens e não acabar sobrevivendo (Vida 0).
 </p>
 
 <h2> Lógica do código </h2>
-<p align="justify">
+<p align ="justify">
 A implementação lógica foi desenvolvida com o objetivo de evitar falhas no programa ou no sistema operacional, como o "estouro de memória", que pode ocorrer quando a quantidade ou tamanho das matrizes excede a capacidade de memória disponível no sistema. Para resolver isso, o programa lê as matrizes do arquivo "dataset/input.data", reescreve e armazena cada uma em arquivos separados, nomeados como "dataset/matriz(K).data". O valor "K" representa o número da matriz atualmente lida e é incrementado a cada iteração do processo, até o fim das matrizes presentes no arquivo "input.data". Essa mesma lógica se aplica ao arquivo de matrizes booleanas, que começa com valores da matriz zerados e é atualizado para 1 nas posições (i, j) que são acessadas durante o caminhamento nas matrizes, com o nome do arquivo sendo "dataset/matrizbool(K).data".Estes arquivos são atualizados no decorrer do programa. As matrizes são carregadas a partir desses arquivos, permitindo que o programa as percorra e trate cada caso com o uso de funções que serão abordadas.
+</p>
  <br>  <br>
+<p align="justify">
 O código está dividido em sete arquivos(exceto os de leitura): Main.cpp, viajante.hpp, viajante.cpp, functions.hpp, functions.cpp, arquivo.hpp e arquivo.cpp. Vamos abordar cada um deles:
 
 * ```main.cpp```: Tudo se inicia na main, sendo chamada a função le_arquivo.
@@ -99,7 +102,7 @@ O código está dividido em sete arquivos(exceto os de leitura): Main.cpp, viaja
 </p>
 
 <h4> Casos especiais</h4>
-
+<p align="justify">
 - Se ele estiver cercado por paredes, isso significa que não será capaz de andar, e consequentemente, o programa irá se encerrar, para isto é utilizado a função ``` verificaParede```.
 <div align="center">
 <img src="https://user-images.githubusercontent.com/109817570/232946768-a97d28d2-ac4e-472e-bb48-25ba3462398b.png" width="400px" />
@@ -110,6 +113,7 @@ Esta imagem representa uma posição acessível cercada por barreiras. Todas as 
 -  Caso o usuário tente ultrapassar algum limite da matriz, utiliza-se a função ``` changeDimension``` que avança para a próxima matriz. Se a última matriz for atingida, a função retorna à matriz 0 (primeira matriz). A posição inicial definida pelo usuário é utilizada para se iniciar a cada mudança de matriz, exceto se houver uma barreira nessa posição. Nesse caso, uma nova posição será gerada aleatoriamente.
 
 -  O caminho que precisa ser gerado é atualizado sempre que ele retorna à posição inicial. Por exemplo, se ele chegar na posição inicial e o caminho anterior não estiver vazio, ele começará um novo caminho.
+</p>
 
 <h2> Exemplo de execução </h2>
 <center>
@@ -137,11 +141,12 @@ Esta imagem representa uma posição acessível cercada por barreiras. Todas as 
 <h2> Custo Computacional </h2>
 <p align="justify">
 O custo computacional deste algoritmo não pode ser previsto, uma vez que ele utiliza posições geradas aleatoriamente, que dependem de fatores imprevisíveis. Isso pode ser explicado pela probabilidade de Bernoulli, um conceito estatístico que se refere à chance de um evento binário ocorrer, sendo 1 se ocorrer sucesso (S) e 0 se ocorrer fracasso (F), com uma probabilidade de sucesso p. Neste algoritmo aleatório, a probabilidade de Bernoulli pode ser usada para determinar a chance de seguir um caminho específico em relação a outro, mas não é possível prever qual vai ser ou como ele ocorrerá o trajeto do viajante devido ao algoritmo e a forma na qual ele foi estruturado.
-
 </p>
-<h2> Conclusão </h2>
 
+<h2> Conclusão </h2>
+<p align="justify">
 Com este algoritmo, é possível compreender bem o percurso em matrizes, principalmente quando é feito de forma aleatória. Podendo analisar aspectos como o custo computacional, o espaço de memória utilizado, o tempo de execução e o jogo em si, no qual percebe que as chances de o viajante conseguir sair do labirinto diminuem à medida que há mais matrizes, sobretudo quando se movimenta aleatoriamente. O uso deste algoritmo possibilita uma melhor compreensão da estrutura de matrizes e entender algoritimos com informações não determinadas, proporcionando uma nova perspectiva que pode ser aplicada em outros projetos.
+</p>
 
  <h2> Compilação e Execução </h2>
 
