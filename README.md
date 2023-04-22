@@ -142,7 +142,8 @@ Esta imagem representa uma posição acessível cercada por barreiras. Todas as 
 
 <h2> Custo Computacional </h2>
 <p align="justify">
-O custo computacional deste algoritmo não pode ser previsto, uma vez que ele utiliza posições geradas aleatoriamente, que dependem de fatores imprevisíveis. Isso pode ser explicado pela probabilidade de Bernoulli, um conceito estatístico que se refere à chance de um evento binário ocorrer, sendo 1 se ocorrer sucesso (S) e 0 se ocorrer fracasso (F), com uma probabilidade de sucesso p. Neste algoritmo aleatório, a probabilidade de Bernoulli pode ser usada para determinar a chance de seguir um caminho específico em relação a outro, mas não é possível prever qual vai ser ou como ele ocorrerá o trajeto do viajante devido ao algoritmo e a forma na qual ele foi estruturado.
+O custo computacional deste algoritmo não pode ser previsto, uma vez que ele utiliza posições geradas aleatoriamente, que dependem de fatores imprevisíveis. Isso pode ser explicado pela probabilidade de Bernoulli, um conceito estatístico que se refere à chance de um evento binário ocorrer, sendo 1 se ocorrer sucesso (S) e 0 se ocorrer fracasso (F), com uma probabilidade de sucesso p. Neste algoritmo aleatório, a probabilidade de Bernoulli pode ser usada para determinar a chance de seguir um caminho específico em relação a outro, mas não é possível prever qual vai ser ou como ocorrerá o trajeto do viajante devido ao algoritmo e a forma na qual ele foi estruturado.
+O tempo de execução é exibido ao usuário para avaliar a eficiência e o desempenho do programa em comparação com outros códigos compilados no mesmo computador. 
 </p>
 
 <h2> Conclusão </h2>
