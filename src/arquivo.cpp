@@ -112,11 +112,20 @@ void Matriz::walkmatrix(string *ss, string *nome_bool)
       error = 0;
       cout << " \n Seja bem vindo viajante! \n Por onde você deseja começar? (x,y)" << endl;
       cin >> initial_lin >> initial_col;
-      if ((this->mat[initial_lin][initial_col] == "#") || initial_lin < 0 || initial_lin > getTam() - 1 || initial_col < 0 || initial_col > getTam() - 1)
+      if (initial_lin < 0 || initial_lin > getTam() - 1 || initial_col < 0 || initial_col > getTam() - 1)
       {
          cout << "Digite uma posição valida" << endl;
          error = 1;
          cin.clear();
+      }
+      else
+      {
+         if (this->mat[initial_lin][initial_col] == "#")
+         {
+            cout << "Digite uma posição valida" << endl;
+            error = 1;
+            cin.clear();
+         }
       }
    } while (error == 1);
    i = initial_lin;
@@ -178,8 +187,8 @@ void Matriz::walkmatrix(string *ss, string *nome_bool)
          }
          if (this->mat[i][j] == "#") // barreira
          {
-            i++;  //para retornar para posiçao que estava 
-            this->vetor[0] = true; //usado para verificar se todas as direçoes sao barreiras
+            i++;                   // para retornar para posiçao que estava
+            this->vetor[0] = true; // usado para verificar se todas as direçoes sao barreiras
             break;
          }
          if (stoi(this->mat[i][j]) > 0 && this->mat[i][j] != "*" && this->mat[i][j] != "#") // short inteiro
@@ -193,7 +202,7 @@ void Matriz::walkmatrix(string *ss, string *nome_bool)
             this->viaj.setQtd_andada(this->viaj.getQtd_andada() + 1);
             for (short int i = 0; i < 8; i++)
             {
-               this->vetor[i] = false; //se uma não for barreira todo o vetor é false
+               this->vetor[i] = false; // se uma não for barreira todo o vetor é false
             }
          }
          break;
@@ -513,7 +522,7 @@ void Matriz::walkmatrix(string *ss, string *nome_bool)
          break;
       }
    }
-   //fim do while = fim do jogo
+   // fim do while = fim do jogo
    this->num_matrizes = 0;
    salvar_matriz(getTam(), this->mat, ss, this->matrix, nome_bool);
    if (viaj.getVida() == 0)
@@ -521,5 +530,5 @@ void Matriz::walkmatrix(string *ss, string *nome_bool)
       cout << "\n\t (*) O animal era mais forte do que você esperava e você acabou morrendo " << endl;
    }
    Output(this->matrix, nome_bool, this->mat, ss, getNumMatriz(), getTam(), this->positionsNoaccessed, &this->num_matrizes, this->positionsAccessed, viaj);
-   removeFile(nome_bool,ss,getNumMatriz(),&this->num_matrizes);
+   removeFile(nome_bool, ss, getNumMatriz(), &this->num_matrizes);
 }
