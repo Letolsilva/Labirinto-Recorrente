@@ -86,11 +86,11 @@ O código está dividido em sete arquivos(exceto os de leitura): Main.cpp, viaja
  
   * checkIfIsZero: A função "checkIfIsZero" tem como objetivo verificar se todo o caminho percorrido pelo viajante é composto apenas por valores iguais a zero. Para isso, a função utiliza duas variáveis booleanas: "allNonZero" e "mudou_mat". A variável "allNonZero" é inicializada como true e alterada para false se a função encontrar um valor diferente de zero. A variável "mudou_mat" é inicializada como true e alterada para false toda vez que o viajante muda de dimensão, garantindo que todas as matrizes foram visitadas pelo menos uma vez. A função continua verificando se "mudou_mat" é false e "allNonZero" é true até que o viajante retorne à posição inicial, neste momento se "mudou_mat" for false, ele verifica se "allNonZero" é verdadeiro, caso seja, todo o caminho percorrido é zero e acaba o jogo. Se não for, ela redefine "mudou_mat" e "allNonZero" como true e continua a percorrer um <b>novo caminho</b>. Essa verificação ocorre repetidamente até todo o caminho for zero.
  
-  * output: A função "output" tem como propósito exibir os resultados finais do programa. Durante a execução dessa função, é realizada a leitura da matriz booleana para contabilizar o número de casas acessadas e não acessadas. Além disso, são apresentados os dados finais, tais como os números de passos realizados, casas não visitadas, perigos enfrentados, itens encontrados, vidas, poções e também os de casas descobertas e não descobertas. Ele também realiza a leitura de todas as matrizes de string e as guarda em um único arquivo de saída.
+  * output: A função "output" tem como propósito exibir os resultados finais do programa. Durante a execução dessa função, é realizada a leitura da matriz booleana para contabilizar o número de casas acessadas e não acessadas. Além disso, são apresentados os dados finais, tais como os números de passos realizados, casas não visitadas, perigos enfrentados, itens encontrados, vidas, poções e também os de casas descobertas e não descobertas. Ele também realiza a leitura de todas as matrizes de string e as guarda em um único arquivo de saída, chamado output.data.
   
   * verificaParede: A função "verificaParede" recebe um vetor booleano que verifica se as oito posições possíveis para se mover são paredes. Se todas as posições forem paredes, cada uma delas receberá true e a função retorna false, indicando que o viajante não pode sair daquela posição e o jogo chega ao fim. Caso contrário, a função retorna true, significando que existe pelo ao menos uma posição possível de andar.
   
-  * RemoveFile: A função remove os arquivos adicionados durante a execução do codigo, ela é implementada no fim do jogo.
+  * RemoveFile: A função remove os arquivos adicionados durante a execução do código, exceto o output.data, ela é implementada no fim do jogo.
   
 * ```arquivo.hpp```: Contém as declarações das classes, funções, variáveis e constantes que são usadas no programa, referente as matrizes. 
 * ```arquivo.cpp```: Implementação das funções, sendo elas le_arquivo e walkmatriz.
@@ -138,6 +138,7 @@ Esta imagem representa uma posição acessível cercada por barreiras. Todas as 
 - O motivo do jogo ter terminado
 - Os dados finais
 - Tempo de execução
+- O arquivo output.data se mantém para poder analisar as matrizes e suas alterações.
 
 <h2> Custo Computacional </h2>
 <p align="justify">
