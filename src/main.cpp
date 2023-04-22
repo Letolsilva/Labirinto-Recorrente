@@ -2,11 +2,12 @@
 using namespace std;
 int main()
 {
-    clock_t start = clock();
+    clock_t inicio = clock();
+    double tempo;
     Matriz m;
     m.le_arquivo();
-    clock_t end = clock();
-    double durations = (double)(end - start) / CLOCKS_PER_SEC;
-    cout<<"\n Tempo de execução: "<< durations << " segundos. "<<endl;
+    clock_t fim = clock();
+    tempo = (double)(fim - inicio) / CLOCKS_PER_SEC;
+    cout<<"\n Tempo de execução: "<< tempo << " segundos. "<<endl;
     return 0;
 }

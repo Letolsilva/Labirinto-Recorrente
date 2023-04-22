@@ -192,7 +192,6 @@ bool checkIfIsZero(short int i, short int j, short int *num_matrizes, short int 
 
 void Output(bool **matrix, string *nomebool, string **mat, string *ss, short int total_mat, short int tam, short int positionsNoaccessed, short int *num_matrizes, short int positionsAccessed, viajante &viaj)
 {
-   string Output;
    ofstream ArqCaminho;
    ArqCaminho.open("dataset/output.data", ios::app);
    ArqCaminho << "\tOUTPUT- CAMINHOS DESCOBERTOS\t" << endl;
